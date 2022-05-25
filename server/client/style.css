@@ -6,11 +6,13 @@
 #tweet-stream {
   background: white;
   border: 1px solid black;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
   display: grid;
   height: 950px;
+  list-style-type: lower-greek;
   margin-left: 10em;
   margin-right: 10em;
-  list-style-type: lower-greek;
   overflow: auto;
   place-items: center;
 }
@@ -31,20 +33,42 @@
 }
 
 #tweet-stream li p:first-of-type {
-  background: white;
+  background: whitesmoke;
+  font-weight: bold;
   border-radius: 45px;
   margin-left: 25%;
   margin-right: 25%;
   padding: 0.54em;
 }
 
-#tweet-stream li p:nth-of-type(2) {
+#tweet-stream li p:nth-of-type(2),
+p:nth-of-type(3) {
+  margin-left: 7%;
+  padding: 0.333em;
+  text-align: left;
+  border-radius: 5px;
+  width: 45%;
+  background-color: white;
+}
+
+#tweet-stream li p:nth-of-type(4) {
   background: white;
   border-radius: 10px;
   font-weight: normal;
   margin-left: 10%;
   margin-right: 10%;
-  padding: 0.54em;
+  margin-top: 1.3em;
+  padding: 1.5em;
+  box-shadow: inset 0 -3em 3em lightblue, 0 0 0 2px lightgray,
+    0.3em 0.3em 1em teal;
+  transition-duration: 3200ms;
+}
+
+#tweet-stream li p:nth-of-type(4):hover {
+  background-color: black;
+  color: whitesmoke;
+  box-shadow: inset 0 -3em 3em rgb(52, 54, 55), 0 0 0 2px rgb(15, 15, 15),
+    1.3em 0.3em 1em white;
 }
 
 #tweet-stream li:hover {

@@ -5,7 +5,8 @@ require("dotenv").config();
 
 const bearerToken = process.env.TWITTER_BEARER_TOKEN;
 const rulesURL = "https://api.twitter.com/2/tweets/search/stream/rules";
-const streamURL = "https://api.twitter.com/2/tweets/search/stream";
+const streamURL =
+  "https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at&expansions=author_id&user.fields=created_at";
 
 const rules = [
   {
@@ -87,28 +88,12 @@ async function streamConnect(retryAttempt) {
     timeout: 20000,
   });
 
-  stream
-    .on("data", (data) => {
-      try {
-        const json = JSON.parse(data);
-        console.log(`Got response ${data}`);
-        redisClient.publish("tweets", data);
+  stream.on("data", dataCallbackHandler()).on("err", errorCallbackHandler());
 
-        // A successful connection resets retry count.
-        retryAttempt = 0;
-      } catch (e) {
-        if (
-          data.detail ===
-          "This stream is currently at the maximum allowed connection limit."
-        ) {
-          console.log(data.detail);
-          process.exit(1);
-        } else {
-          // Keep alive signal received. Do nothing.
-        }
-      }
-    })
-    .on("err", (error) => {
+  return stream;
+
+  function errorCallbackHandler() {
+    return (error) => {
       if (error.code !== "ECONNRESET") {
         console.log(error.code);
         process.exit(1);
@@ -121,9 +106,31 @@ async function streamConnect(retryAttempt) {
           streamConnect(++retryAttempt);
         }, 2 ** retryAttempt);
       }
-    });
+    };
+  }
 
-  return stream;
+  function dataCallbackHandler() {
+    return (data) => {
+      try {
+        const json = JSON.parse(data);
+        console.log(`Got response ${data}`);
+        redisClient.publish("tweets", data);
+
+        // A successful connection resets retry count.
+        retryAttempt = 0;
+      } catch (e) {
+        if (
+          data.detail ===
+          "This stream is currently at the maximum allowed connection limit."
+        ) {
+          console.error("Connect at limit", data.detail);
+          process.exit(1);
+        } else {
+          // Keep alive signal received. Do nothing.
+        }
+      }
+    };
+  }
 }
 
 (async () => {

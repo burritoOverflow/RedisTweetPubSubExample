@@ -1,5 +1,5 @@
 const socket = io();
-let totalTweets = 0;
+const tweetsArr = new Array();
 
 updateTweetCounterStr = (newCount) => {
   return `Total Tweets Received: ${newCount}`;
@@ -8,20 +8,29 @@ updateTweetCounterStr = (newCount) => {
 socket.on("tweet", function (tweet) {
   const li = document.createElement("li");
   const tweetData = tweet.tweet.data;
+  tweetsArr.push(tweetData);
 
-  const p0 = document.createElement("p");
-  p0.innerText = `Tweet ID: ${tweetData.id}`;
+  const tweetIdPElem = document.createElement("p");
+  tweetIdPElem.innerText = `Tweet ID: ${tweetData.id}`;
 
-  const p1 = document.createElement("p");
-  p1.innerText = `${tweetData.text}`;
+  const tweetTextPElem = document.createElement("p");
+  tweetTextPElem.innerText = `${tweetData.text}`;
 
-  li.appendChild(p0);
-  li.appendChild(p1);
+  const authorIdPElem = document.createElement("p");
+  authorIdPElem.innerText = `Author ID: ${tweetData.author_id}`;
+
+  const createdAtPElem = document.createElement("p");
+  createdAtPElem.innerText = `Created at: ${tweetData.created_at}`;
+
+  li.appendChild(tweetIdPElem);
+  li.appendChild(createdAtPElem);
+  li.appendChild(authorIdPElem);
+  li.appendChild(tweetTextPElem);
 
   const mainList = document.getElementById("tweet-stream");
   mainList.appendChild(li);
 
   document.getElementById("tweet-counter").innerText = updateTweetCounterStr(
-    ++totalTweets
+    tweetsArr.length
   );
 });

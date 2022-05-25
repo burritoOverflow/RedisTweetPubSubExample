@@ -18,6 +18,8 @@ WEB_SERVER_PORT=<port-for-web-server>
 
 If running in conjuction with a local Redis instance, you may omit `REDIS_USERNAME` and `REDIS_PASSWORD`.
 
+Install dependencies
+
 ```
 npm i
 ```
