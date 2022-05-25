@@ -1,4 +1,10 @@
 const socket = io();
+let totalTweets = 0;
+
+updateTweetCounterStr = (newCount) => {
+  return `Total Tweets Received: ${newCount}`;
+};
+
 socket.on("tweet", function (tweet) {
   const li = document.createElement("li");
   const tweetData = tweet.tweet.data;
@@ -14,4 +20,8 @@ socket.on("tweet", function (tweet) {
 
   const mainList = document.getElementById("tweet-stream");
   mainList.appendChild(li);
+
+  document.getElementById("tweet-counter").innerText = updateTweetCounterStr(
+    ++totalTweets
+  );
 });

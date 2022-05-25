@@ -1,0 +1,39 @@
+#header {
+  display: grid;
+  place-items: center;
+}
+
+#tweet-stream {
+  display: grid;
+  list-style-type: lower-greek;
+  place-items: center;
+}
+
+#tweet-stream li {
+  background: lightseagreen;
+  border-radius: 45px;
+  border: 1px solid lightseagreen;
+  font-size: x-large;
+  font-weight: bolder;
+  margin: 1.1em;
+  padding: 0.36em;
+  text-align: center;
+  width: 40%;
+}
+
+#tweet-stream li p:first-of-type {
+  background: white;
+  border-radius: 45px;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding: 0.54em;
+}
+
+#tweet-stream li p:nth-of-type(2) {
+  background: white;
+  border-radius: 10px;
+  font-weight: normal;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 0.54em;
+}
