@@ -110,15 +110,22 @@ async function streamConnect(retryAttempt) {
   }
 
   function dataCallbackHandler() {
-    return (data) => {
+    return async (data) => {
       try {
         const json = JSON.parse(data);
         console.log(`Got response ${data}`);
         redisClient.publish("tweets", data);
 
+        const jsonData = JSON.parse(data);
+        const key = jsonData.data.id;
+
+        const result = await redisClient.set(key, data);
+        console.log(`key added for tweet with id ${key}`);
+
         // A successful connection resets retry count.
         retryAttempt = 0;
       } catch (e) {
+        console.error(`Exception thrown: ${e}`);
         if (
           data.detail ===
           "This stream is currently at the maximum allowed connection limit."
