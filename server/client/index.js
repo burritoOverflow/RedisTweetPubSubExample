@@ -1,5 +1,10 @@
 const socket = io();
 const tweetsArr = new Array();
+const autoscrollCheckbox = document.getElementById("autoscroll-checkbox");
+
+autoscrollCheckbox.addEventListener("click", (e) => {
+  console.log(e);
+});
 
 updateTweetCounterStr = (newCount) => {
   return `Total Tweets Received: ${newCount}`;
@@ -33,4 +38,7 @@ socket.on("tweet", function (tweet) {
   document.getElementById("tweet-counter").innerText = updateTweetCounterStr(
     tweetsArr.length
   );
+
+  if (autoscrollCheckbox.checked)
+    mainList.scrollTo({ top: mainList.scrollHeight, behavior: "smooth" });
 });

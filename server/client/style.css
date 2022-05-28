@@ -29,6 +29,7 @@
   padding: 0.36em;
   text-align: center;
   transition-duration: 307ms;
+  transition-timing-function: ease-in-out;
   width: 40%;
 }
 
@@ -61,17 +62,19 @@ p:nth-of-type(3) {
   padding: 1.5em;
   box-shadow: inset 0 -3em 3em lightblue, 0 0 0 2px lightgray,
     0.3em 0.3em 1em teal;
-  transition-duration: 3200ms;
+  transition-duration: 756ms;
 }
 
 #tweet-stream li p:nth-of-type(4):hover {
   background-color: black;
-  color: whitesmoke;
-  box-shadow: inset 0 -3em 3em rgb(52, 54, 55), 0 0 0 2px rgb(15, 15, 15),
+  color: rgb(29, 155, 240);
+  box-shadow: inset 0 -3em 3em rgb(73, 74, 75), 0 0 0 2px rgb(126, 123, 123),
     1.3em 0.3em 1em white;
+  transform: translateX(-1%) translateY(-1%) scale(95%);
 }
 
 #tweet-stream li:hover {
+  background: rgb(29, 155, 240);
   border-radius: 33px;
   border: 3px black;
   box-shadow: 22px 16px 5px lightgray;

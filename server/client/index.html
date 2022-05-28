@@ -6,14 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SocketIO Tweet Stream</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"></script>
-    <script src="./index.js"></script>
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div id="header">
       <h1>SocketIO Example</h1>
       <p id="tweet-counter"></p>
+      <span>Auto-scroll</span>
+      <input
+        type="checkbox"
+        name="toggle-autoscroll"
+        id="autoscroll-checkbox"
+      />
     </div>
     <ul id="tweet-stream"></ul>
+    <script src="./index.js"></script>
   </body>
 </html>
